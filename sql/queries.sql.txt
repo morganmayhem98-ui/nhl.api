@@ -1,3 +1,5 @@
+=Basic Table Checks
+
 -- Show all teams
 SELECT * FROM teams;
 
@@ -9,3 +11,50 @@ SELECT g.game_date, g.location, t.name
 FROM games g
 JOIN team_games tg ON g.id = tg.game_id
 JOIN teams t ON tg.team_id = t.id;
+
+= One to Many Relationships =
+
+-- List players with their team name
+SELECT 
+    p.id AS player_id,
+    p.first_name,
+    p.last_name,
+    p.position,
+    t.name AS team_name
+FROM players p
+JOIN teams t ON p.team_id = t.id;
+
+
+= Many to Many Relationships =
+
+-- List games with teams playing
+SELECT 
+    g.id AS game_id,
+    g.game_date,
+    g.location,
+    t.name AS team_name
+FROM games g
+JOIN team_games tg ON g.id = tg.game_id
+JOIN teams t ON tg.team_id = t.id
+ORDER BY g.game_date;
+
+
+= Filtered Queries =
+
+-- All players for one team (example: Bruins)
+SELECT 
+    p.first_name,
+    p.last_name,
+    p.position
+FROM players p
+JOIN teams t ON p.team_id = t.id
+WHERE t.name = 'Bruins';
+
+-- All games for one team
+SELECT 
+    g.game_date,
+    g.location
+FROM games g
+JOIN team_games tg ON g.id = tg.game_id
+JOIN teams t ON tg.team_id = t.id
+WHERE t.name = 'Bruins';
