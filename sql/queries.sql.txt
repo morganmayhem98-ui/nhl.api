@@ -1,0 +1,11 @@
+-- Show all teams
+SELECT * FROM teams;
+
+-- Show all players
+SELECT * FROM players;
+
+-- Show games and teams
+SELECT g.game_date, g.location, t.name
+FROM games g
+JOIN team_games tg ON g.id = tg.game_id
+JOIN teams t ON tg.team_id = t.id;
